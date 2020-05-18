@@ -1,8 +1,5 @@
 def TP_net_1(input_shape):
     
-    
-    
-    
     input_img = Input(shape = (32, 32, 3))
     tower_1 = Conv2D(64, (3,3), padding='same', activation='relu', kernel_regularizer=regularizers.l2(weight_decay))(input_img)
     #     tower_1 = Conv2D(192, (5, 5), padding='same', kernel_regularizer=keras.regularizers.l2(weight_decay), input_shape=x_train.shape[1:])
