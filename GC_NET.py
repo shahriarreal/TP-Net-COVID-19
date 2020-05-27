@@ -35,18 +35,12 @@ def piecewise5(X):
                                          bk.switch(X < 0.6, (1.5 * X ),
                                                    bk.switch(X < 5, (3 * X ), (3 * X ))))))
 
-get_custom_objects().update({'piecewise5': Activation(piecewise5)})
 
-
-
-
-input_shape=X_train.shape[1:]
-
-def GC_Net(input_shape):
+def custom_network(height, width, classes, pre_trained=''):
 
     
     
-    input_img = Input(shape = (30, 30, 3))
+    input_img = Input(shape = (height, width, 3))
     
     conv_1 = Conv2D(64, (3,3), padding='same', activation='piecewise5')(input_img)
     block1_output = GlobalAveragePooling2D()(conv_1)
@@ -90,7 +84,7 @@ def GC_Net(input_shape):
     output = keras.layers.concatenate([block1_output, block2_output, block3_output,block4_output,block5_output, block6_output ], axis = 1)
     #     output = Flatten()(output)
     output = Dense(64,activation='piecewise5')(output)
-    out    = Dense(43, activation='softmax')(output)
+    out    = Dense(classes, activation='softmax')(output)
     
     
     
